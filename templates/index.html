@@ -57,13 +57,13 @@
               <p>{{ video.size }}</p>
               <p>{{ video.date }}</p>
               <button
-                onclick="deleteVideo('{{ video.path }}', {{ loop.index }});"
+                onclick="deleteVideo(`{{ video.path }}`, `{{ loop.index }}`);"
                 class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600 transition duration-200"
               >
                 删除
               </button>
               <button
-                onclick="convertVideo('{{ video.path }}', {{ loop.index }});"
+                onclick="convertVideo('{{ video.path }}', `{{ loop.index }}`);"
                 class="bg-green-500 text-white py-1 px-3 rounded-lg hover:bg-green-600 transition duration-200 mt-2"
               >
                 转换格式
