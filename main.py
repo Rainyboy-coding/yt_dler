@@ -35,6 +35,15 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 download_progress = {}
 convert_progress = {}  # 新增转换进度字典
 
+# 在存储下载进度的字典之后添加
+NOTES_FILE = "notes.json"
+notes = {}
+
+# 启动时加载已有笔记
+if os.path.exists(NOTES_FILE):
+    with open(NOTES_FILE, 'r') as f:
+        notes = json.load(f)
+
 def download_video(url: str, video_id: str):
     try:
         def progress_hook(d):
@@ -236,6 +245,74 @@ async def convert(background_tasks: BackgroundTasks, video_path: str = Form(...)
 @app.get("/convert-progress/{task_id}")
 async def get_convert_progress(task_id: str):
     return convert_progress.get(task_id, {'progress': 0, 'status': 'unknown'})
+
+@app.post("/save-note")
+async def save_note(content: str = Form(...)):
+    try:
+        note_id = str(time.time())
+        notes[note_id] = {
+            'content': content,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+        # 保存到文件
+        with open(NOTES_FILE, 'w') as f:
+            json.dump(notes, f)
+        return JSONResponse(
+            status_code=200,
+            content={"message": "保存成功"}
+        )
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"message": f"保存失败: {str(e)}"}
+        )
+
+@app.get("/get-notes")
+async def get_notes():
+    return notes
+
+@app.delete("/delete-note/{note_id}")
+async def delete_note(note_id: str):
+    try:
+        if note_id in notes:
+            del notes[note_id]
+            with open(NOTES_FILE, 'w') as f:
+                json.dump(notes, f)
+            return JSONResponse(
+                status_code=200,
+                content={"message": "删除成功"}
+            )
+        return JSONResponse(
+            status_code=404,
+            content={"message": "笔记不存在"}
+        )
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"message": f"删除失败: {str(e)}"}
+        )
+
+@app.put("/edit-note/{note_id}")
+async def edit_note(note_id: str, content: str = Form(...)):
+    try:
+        if note_id in notes:
+            notes[note_id]['content'] = content
+            notes[note_id]['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            with open(NOTES_FILE, 'w') as f:
+                json.dump(notes, f)
+            return JSONResponse(
+                status_code=200,
+                content={"message": "修改成功"}
+            )
+        return JSONResponse(
+            status_code=404,
+            content={"message": "笔记不存在"}
+        )
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"message": f"修改失败: {str(e)}"}
+        )
 
 if __name__ == "__main__":
     import uvicorn
