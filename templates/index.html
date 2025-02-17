@@ -6,6 +6,39 @@
     <title>YouTube 视频下载器</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/styles.css" />
+    <style>
+      .video-grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+      
+      .video-item {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+      }
+      
+      .video-item:hover {
+        transform: translateY(-2px);
+      }
+      
+      .video-item video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        border-radius: 0.25rem;
+      }
+      
+      .video-item p {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+      }
+    </style>
   </head>
   <body class="bg-gray-100">
     <div class="container mx-auto px-8 py-8">
@@ -88,9 +121,11 @@
                 <source src="{{ video.path }}" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <p>{{ video.title | truncate(20) }}</p>
-              <p>{{ video.size }}</p>
-              <p>{{ video.date }}</p>
+              <p class="font-medium break-words line-clamp-2">{{ video.title }}</p>
+              <div class="text-center space-y-1">
+                <p class="text-sm">{{ video.size }}</p>
+                <p class="text-xs text-gray-500">{{ video.date }}</p>
+              </div>
               <button
                 onclick="deleteVideo(`{{ video.path }}`, `{{ loop.index }}`);"
                 class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600 transition duration-200"
