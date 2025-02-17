@@ -439,7 +439,7 @@
                 保存
               </button>
               <button 
-                onclick="cancelInlineEdit('${noteId}', '${originalContent}')"
+                onclick="isEditing = false; loadNotes();"
                 class="text-sm bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-200"
               >
                 取消
@@ -479,20 +479,6 @@
           console.error('保存失败:', error);
           alert('保存时发生错误');
         }
-      }
-
-      // 取消编辑
-      function cancelInlineEdit(noteId, originalContent) {
-        isEditing = false; // 退出编辑状态
-        const noteDiv = document.querySelector(`[data-note-id="${noteId}"]`);
-        const editArea = noteDiv.querySelector('textarea').parentElement;
-        
-        // 恢复原始内容
-        const contentPara = document.createElement('p');
-        contentPara.className = 'text-gray-600 editable-content';
-        contentPara.textContent = originalContent;
-        
-        editArea.replaceWith(contentPara);
       }
     </script>
   </body>
