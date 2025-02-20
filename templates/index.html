@@ -79,7 +79,7 @@
 
         <div class="bg-white rounded-lg shadow-md p-6 mt-8">
           <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold">指令</h2>
+            <h2 class="text-2xl font-bold">提示词</h2>
             <button
               onclick="toggleNoteInput()"
               class="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition duration-200"
@@ -354,17 +354,47 @@
 
       // 添加删除功能（需要后端支持）
       async function deleteNote(noteId) {
-        if (confirm('确定要删除这条笔记吗？')) {
-          try {
-            const response = await fetch(`/delete-note/${noteId}`, {
-              method: 'DELETE'
-            });
-            if (response.ok) {
-              loadNotes();
-            }
-          } catch (error) {
-            console.error('删除失败:', error);
+        // 创建自定义确认对话框
+        const dialog = document.createElement('div');
+        dialog.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+        dialog.innerHTML = `
+          <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 class="text-lg font-medium mb-4">确定要删除这条笔记吗？</h3>
+            <div class="flex justify-end space-x-3">
+              <button 
+                onclick="this.closest('div[class^=fixed]').remove();" 
+                class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                取消
+              </button>
+              <button 
+                onclick="handleNoteDeletion('${noteId}')" 
+                class="px-4 py-2 bg-red-500 text-white hover:bg-red-600 rounded-lg transition-colors"
+              >
+                确定删除
+              </button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(dialog);
+      }
+
+      // 新增删除处理函数
+      async function handleNoteDeletion(noteId) {
+        try {
+          const response = await fetch(`/delete-note/${noteId}`, {
+            method: 'DELETE'
+          });
+          if (response.ok) {
+            // 移除对话框
+            document.querySelector('.fixed.inset-0').remove();
+            // 显示操作反馈
+            showToast('🗑️ 笔记已删除', 'success');
+            loadNotes();
           }
+        } catch (error) {
+          console.error('删除失败:', error);
+          showToast('⚠️ 删除失败，请重试', 'error');
         }
       }
 
