@@ -14,10 +14,10 @@
       }
       
       .video-item {
-        background: white;
+        background: theme('colors.gray.800');
         border-radius: 0.5rem;
         padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         transition: transform 0.2s;
       }
       
@@ -40,7 +40,7 @@
       }
     </style>
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-900 text-gray-100">
     <div class="container mx-auto px-8 py-8">
       <h1 class="text-4xl font-bold text-center mb-4 text-[#0066FF]">YouTube 视频下载器</h1>
       <p class="text-center text-gray-600 mb-8">
@@ -48,36 +48,36 @@
       </p>
 
       <div class="max-w-5xl mx-auto">
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700">
           <input
             type="text"
             id="videoUrl"
-            class="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-900 border-gray-600 text-gray-100 placeholder-gray-400"
             placeholder="请输入 YouTube 视频链接"
           />
 
           <button
             onclick="downloadVideo()"
-            class="w-full bg-[#0066FF] text-white py-2 px-4 rounded-lg hover:bg-[#0052CC] transition duration-200"
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition duration-200"
           >
             下载视频
           </button>
 
           <div id="progressBar" class="hidden mt-4">
-            <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="w-full bg-gray-700 rounded-full h-2.5">
               <div
                 id="progress"
-                class="bg-[#00CC88] h-2.5 rounded-full"
+                class="bg-blue-500 h-2.5 rounded-full"
                 style="width: 0%"
               ></div>
             </div>
-            <p id="progressText" class="text-sm text-gray-600 mt-2">
+            <p id="progressText" class="text-sm text-gray-300 mt-2">
               准备下载...
             </p>
           </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <div class="bg-gray-800 rounded-lg shadow-md p-6 mt-8 border border-gray-700">
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-bold">提示词</h2>
             <button
@@ -90,7 +90,7 @@
           <div id="noteInputArea" class="hidden">
             <textarea 
               id="noteContent"
-              class="w-full px-4 py-2 border rounded-lg mb-4 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="w-full px-4 py-2 border rounded-lg mb-4 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600"
               placeholder="输入需要保存的内容..."
             ></textarea>
             <div class="flex space-x-2">
@@ -115,7 +115,7 @@
         </div>
 
         <div class="mt-8">
-          <h2 class="text-2xl font-bold mb-4">已下载的视频</h2>
+          <h2 class="text-2xl font-bold mb-4 text-gray-200">已下载的视频</h2>
           <div class="video-grid">
             {% for video in videos %}
             <div class="video-item" id="video-{{ loop.index }}">
@@ -157,7 +157,7 @@
     </div>
 
     <!-- 修改toast位置为页面正中间 -->
-    <div id="toast" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg opacity-0 transition-opacity duration-300 z-50"></div>
+    <div id="toast" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg opacity-0 transition-opacity duration-300 z-50 bg-gray-800 border border-gray-600"></div>
 
     <script>
       let isEditing = false; // 新增编辑状态标志
@@ -324,11 +324,11 @@
           notesList.innerHTML = Object.entries(window.notesData)
             .sort((a, b) => b[0] - a[0]) // 按时间倒序
             .map(([id, note], index) => `
-              <div class="bg-gray-50 p-3 rounded-lg" data-note-id="${id}">
+              <div class="bg-gray-700 p-3 rounded-lg border border-gray-600" data-note-id="${id}">
                 <div class="flex items-start gap-3">
                   <span class="text-gray-400 font-medium">${index + 1}</span>
                   <div class="flex-1">
-                    <p class="text-gray-600 editable-content">${note.content}</p>
+                    <p class="text-gray-200 editable-content">${note.content}</p>
                     <div class="flex justify-between items-center mt-2">
                       <span class="text-sm text-gray-400">${note.timestamp}</span>
                       <div class="space-x-2">
@@ -422,7 +422,7 @@
         const toast = document.getElementById('toast');
         toast.textContent = message;
         toast.className = `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg ${
-          type === 'success' ? 'bg-[#00CC88]' : 'bg-[#FF4444]'
+          type === 'success' ? 'bg-gray-800 border border-gray-600' : 'bg-[#FF4444]'
         } opacity-0 transition-opacity duration-300 z-50`;
 
         // 显示并自动隐藏
