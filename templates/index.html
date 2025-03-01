@@ -12,26 +12,26 @@
         gap: 1.5rem;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       }
-      
+
       .video-item {
-        background: theme('colors.gray.800');
+        background: theme("colors.gray.800");
         border-radius: 0.5rem;
         padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         transition: transform 0.2s;
       }
-      
+
       .video-item:hover {
         transform: translateY(-2px);
       }
-      
+
       .video-item video {
         width: 100%;
         height: auto;
         aspect-ratio: 16/9;
         border-radius: 0.25rem;
       }
-      
+
       .video-item p {
         margin: 0.5rem 0;
         font-size: 0.9rem;
@@ -42,13 +42,17 @@
   </head>
   <body class="bg-gray-900 text-gray-100">
     <div class="container mx-auto px-8 py-8">
-      <h1 class="text-4xl font-bold text-center mb-4 text-[#0066FF]">YouTube 视频下载器</h1>
+      <h1 class="text-4xl font-bold text-center mb-4 text-[#0066FF]">
+        YouTube 视频下载器
+      </h1>
       <p class="text-center text-gray-600 mb-8">
         输入 YouTube 视频链接，轻松下载高质量视频
       </p>
 
       <div class="max-w-5xl mx-auto">
-        <div class="bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700">
+        <div
+          class="bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700"
+        >
           <input
             type="text"
             id="videoUrl"
@@ -77,7 +81,9 @@
           </div>
         </div>
 
-        <div class="bg-gray-800 rounded-lg shadow-md p-6 mt-8 border border-gray-700">
+        <div
+          class="bg-gray-800 rounded-lg shadow-md p-6 mt-8 border border-gray-700"
+        >
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-bold">提示词</h2>
             <button
@@ -88,7 +94,7 @@
             </button>
           </div>
           <div id="noteInputArea" class="hidden">
-            <textarea 
+            <textarea
               id="noteContent"
               class="w-full px-4 py-2 border rounded-lg mb-4 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600"
               placeholder="输入需要保存的内容..."
@@ -108,7 +114,7 @@
               </button>
             </div>
           </div>
-          
+
           <div id="notesList" class="mt-4 space-y-3">
             <!-- 笔记会动态加载到这里 -->
           </div>
@@ -123,7 +129,76 @@
                 <source src="{{ video.path }}" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <p class="font-medium break-words line-clamp-2">{{ video.title }}</p>
+              <div class="flex justify-between items-center mt-2 mb-2">
+                <div
+                  class="relative"
+                  id="more-options-container-{{ loop.index }}"
+                >
+                  <button
+                    onclick="toggleMoreOptions('{{ loop.index }}')"
+                    class="bg-gray-700 text-white py-1 px-3 text-xs rounded hover:bg-gray-600 transition-colors flex items-center"
+                  >
+                    <span>更多选项</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-3 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                  <div
+                    id="more-options-{{ loop.index }}"
+                    class="absolute left-0 mt-1 bg-gray-700 rounded-md shadow-lg z-10 hidden"
+                  >
+                    <div class="p-2">
+                      <p class="text-xs text-gray-400 mb-1">播放速度</p>
+                      <div class="grid grid-cols-2 gap-1">
+                        <button
+                          onclick="changePlaybackRate(this, '{{ loop.index }}', 0.5)"
+                          class="bg-blue-600 text-white py-1 px-2 text-xs rounded hover:bg-blue-700 transition-colors"
+                        >
+                          0.5x
+                        </button>
+                        <button
+                          onclick="changePlaybackRate(this, '{{ loop.index }}', 1.0)"
+                          class="bg-blue-600 text-white py-1 px-2 text-xs rounded hover:bg-blue-700 transition-colors"
+                        >
+                          1.0x
+                        </button>
+                        <button
+                          onclick="changePlaybackRate(this, '{{ loop.index }}', 1.5)"
+                          class="bg-blue-600 text-white py-1 px-2 text-xs rounded hover:bg-blue-700 transition-colors"
+                        >
+                          1.5x
+                        </button>
+                        <button
+                          onclick="changePlaybackRate(this, '{{ loop.index }}', 2.0)"
+                          class="bg-blue-600 text-white py-1 px-2 text-xs rounded hover:bg-blue-700 transition-colors"
+                        >
+                          2.0x
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p
+                  class="text-xs text-gray-400"
+                  id="speed-indicator-{{ loop.index }}"
+                >
+                  1.0x
+                </p>
+              </div>
+              <p class="font-medium break-words line-clamp-2">
+                {{ video.title }}
+              </p>
               <div class="text-center space-y-1">
                 <p class="text-sm">{{ video.size }}</p>
                 <p class="text-xs text-gray-500">{{ video.date }}</p>
@@ -147,7 +222,9 @@
                     style="width: 0%"
                   ></div>
                 </div>
-                <p class="text-sm text-gray-600 mt-2 convert-status">准备转换...</p>
+                <p class="text-sm text-gray-600 mt-2 convert-status">
+                  准备转换...
+                </p>
               </div>
             </div>
             {% endfor %}
@@ -157,7 +234,10 @@
     </div>
 
     <!-- 修改toast位置为页面正中间 -->
-    <div id="toast" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg opacity-0 transition-opacity duration-300 z-50 bg-gray-800 border border-gray-600"></div>
+    <div
+      id="toast"
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg opacity-0 transition-opacity duration-300 z-50 bg-gray-800 border border-gray-600"
+    ></div>
 
     <script>
       let isEditing = false; // 新增编辑状态标志
@@ -247,10 +327,12 @@
       }
 
       async function convertVideo(videoPath, index) {
-        const progressDiv = document.getElementById(`convert-progress-${index}`);
-        const progressBar = progressDiv.querySelector('.convert-progress');
-        const statusText = progressDiv.querySelector('.convert-status');
-        progressDiv.classList.remove('hidden');
+        const progressDiv = document.getElementById(
+          `convert-progress-${index}`
+        );
+        const progressBar = progressDiv.querySelector(".convert-progress");
+        const statusText = progressDiv.querySelector(".convert-status");
+        progressDiv.classList.remove("hidden");
 
         try {
           const formData = new FormData();
@@ -269,14 +351,18 @@
             const progressData = await progressResponse.json();
 
             progressBar.style.width = `${progressData.progress}%`;
-            statusText.textContent = `转换进度: ${progressData.progress.toFixed(1)}%`;
+            statusText.textContent = `转换进度: ${progressData.progress.toFixed(
+              1
+            )}%`;
 
-            if (progressData.status === 'error') {
+            if (progressData.status === "error") {
               clearInterval(progressInterval);
-              statusText.textContent = `转换失败: ${progressData.error || '未知错误'}`;
+              statusText.textContent = `转换失败: ${
+                progressData.error || "未知错误"
+              }`;
             }
 
-            if (progressData.status === 'completed') {
+            if (progressData.status === "completed") {
               clearInterval(progressInterval);
               statusText.textContent = "转换完成！页面将在3秒后刷新...";
               setTimeout(() => location.reload(), 3000);
@@ -289,48 +375,53 @@
       }
 
       async function saveNote() {
-        const content = document.getElementById('noteContent').value;
+        const content = document.getElementById("noteContent").value;
         if (!content) {
-          alert('请输入要保存的内容！');
+          alert("请输入要保存的内容！");
           return;
         }
 
         const formData = new FormData();
-        formData.append('content', content);
+        formData.append("content", content);
 
         try {
-          const response = await fetch('/save-note', {
-            method: 'POST',
-            body: formData
+          const response = await fetch("/save-note", {
+            method: "POST",
+            body: formData,
           });
-          
+
           if (response.ok) {
-            document.getElementById('noteContent').value = '';
+            document.getElementById("noteContent").value = "";
             toggleNoteInput();
             loadNotes();
           }
         } catch (error) {
-          console.error('保存失败:', error);
+          console.error("保存失败:", error);
         }
       }
 
       // 自动加载和刷新笔记
       async function loadNotes() {
-        const notesList = document.getElementById('notesList');
+        const notesList = document.getElementById("notesList");
         try {
-          const response = await fetch('/get-notes');
+          const response = await fetch("/get-notes");
           window.notesData = await response.json(); // 改为全局存储
-          
+
           notesList.innerHTML = Object.entries(window.notesData)
             .sort((a, b) => b[0] - a[0]) // 按时间倒序
-            .map(([id, note], index) => `
+            .map(
+              ([id, note], index) => `
               <div class="bg-gray-700 p-3 rounded-lg border border-gray-600" data-note-id="${id}">
                 <div class="flex items-start gap-3">
                   <span class="text-gray-400 font-medium">${index + 1}</span>
                   <div class="flex-1">
-                    <p class="text-gray-200 editable-content">${note.content}</p>
+                    <p class="text-gray-200 editable-content">${
+                      note.content
+                    }</p>
                     <div class="flex justify-between items-center mt-2">
-                      <span class="text-sm text-gray-400">${note.timestamp}</span>
+                      <span class="text-sm text-gray-400">${
+                        note.timestamp
+                      }</span>
                       <div class="space-x-2">
                         <button onclick="copyNote('${id}')" class="text-white hover:text-gray-200 text-sm bg-blue-600/80 px-2 py-1 rounded-md shadow-sm">
                           复制
@@ -346,17 +437,20 @@
                   </div>
                 </div>
               </div>
-            `).join('');
+            `
+            )
+            .join("");
         } catch (error) {
-          console.error('加载笔记失败:', error);
+          console.error("加载笔记失败:", error);
         }
       }
 
       // 添加删除功能（需要后端支持）
       async function deleteNote(noteId) {
         // 创建自定义确认对话框
-        const dialog = document.createElement('div');
-        dialog.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+        const dialog = document.createElement("div");
+        dialog.className =
+          "fixed inset-0 bg-black/50 flex items-center justify-center z-50";
         dialog.innerHTML = `
           <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
             <h3 class="text-lg font-medium mb-4">确定要删除这条笔记吗？</h3>
@@ -383,18 +477,18 @@
       async function handleNoteDeletion(noteId) {
         try {
           const response = await fetch(`/delete-note/${noteId}`, {
-            method: 'DELETE'
+            method: "DELETE",
           });
           if (response.ok) {
             // 移除对话框
-            document.querySelector('.fixed.inset-0').remove();
+            document.querySelector(".fixed.inset-0").remove();
             // 显示操作反馈
-            showToast('🗑️ 笔记已删除', 'success');
+            showToast("🗑️ 笔记已删除", "success");
             loadNotes();
           }
         } catch (error) {
-          console.error('删除失败:', error);
-          showToast('⚠️ 删除失败，请重试', 'error');
+          console.error("删除失败:", error);
+          showToast("⚠️ 删除失败，请重试", "error");
         }
       }
 
@@ -402,14 +496,19 @@
       function copyNote(noteId) {
         const content = window.notesData[noteId]?.content;
         if (content) {
-          navigator.clipboard.writeText(content)
-            .then(() => showToast('📋 已复制到剪贴板', 'success'))
+          navigator.clipboard
+            .writeText(content)
+            .then(() => showToast("📋 已复制到剪贴板", "success"))
             .catch(() => {
-              showToast('⚠️ 复制失败，已自动选中文本', 'error');
+              showToast("⚠️ 复制失败，已自动选中文本", "error");
               // 自动选中文本作为回退方案
-              const noteDiv = document.querySelector(`[data-note-id="${noteId}"]`);
+              const noteDiv = document.querySelector(
+                `[data-note-id="${noteId}"]`
+              );
               const range = document.createRange();
-              range.selectNodeContents(noteDiv.querySelector('.editable-content'));
+              range.selectNodeContents(
+                noteDiv.querySelector(".editable-content")
+              );
               const selection = window.getSelection();
               selection.removeAllRanges();
               selection.addRange(range);
@@ -418,48 +517,51 @@
       }
 
       // 修改后的提示函数
-      function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.className = `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg ${
-          type === 'success' ? 'bg-gray-800 border border-gray-600' : 'bg-[#FF4444]'
+          type === "success"
+            ? "bg-gray-800 border border-gray-600"
+            : "bg-[#FF4444]"
         } opacity-0 transition-opacity duration-300 z-50`;
 
         // 显示并自动隐藏
-        toast.classList.remove('opacity-0');
-        toast.classList.add('opacity-100');
-        
+        toast.classList.remove("opacity-0");
+        toast.classList.add("opacity-100");
+
         setTimeout(() => {
-          toast.classList.remove('opacity-100');
-          toast.classList.add('opacity-0');
+          toast.classList.remove("opacity-100");
+          toast.classList.add("opacity-0");
         }, 1500);
       }
 
       // 页面加载时自动获取笔记
-      document.addEventListener('DOMContentLoaded', loadNotes);
+      document.addEventListener("DOMContentLoaded", loadNotes);
       // 修改自动刷新逻辑
       setInterval(() => {
-        if (!isEditing) { // 只有不在编辑状态时才刷新
+        if (!isEditing) {
+          // 只有不在编辑状态时才刷新
           loadNotes();
         }
       }, 30000);
 
       // 切换输入框显示
       function toggleNoteInput() {
-        const inputArea = document.getElementById('noteInputArea');
-        inputArea.classList.toggle('hidden');
-        document.getElementById('noteContent').value = '';
+        const inputArea = document.getElementById("noteInputArea");
+        inputArea.classList.toggle("hidden");
+        document.getElementById("noteContent").value = "";
       }
 
       // 行内编辑功能
       async function startInlineEdit(noteId) {
         isEditing = true; // 进入编辑状态
         const noteDiv = document.querySelector(`[data-note-id="${noteId}"]`);
-        const contentPara = noteDiv.querySelector('.editable-content');
+        const contentPara = noteDiv.querySelector(".editable-content");
         const originalContent = contentPara.textContent;
 
         // 创建编辑元素
-        const editArea = document.createElement('div');
+        const editArea = document.createElement("div");
         editArea.innerHTML = `
           <div class="w-full max-w-4xl">
             <textarea 
@@ -492,30 +594,85 @@
       // 保存编辑
       async function saveInlineEdit(noteId) {
         try {
-          const newContent = document.getElementById(`editContent-${noteId}`).value;
+          const newContent = document.getElementById(
+            `editContent-${noteId}`
+          ).value;
           if (!newContent.trim()) {
-            alert('内容不能为空');
+            alert("内容不能为空");
             return;
           }
 
           const formData = new FormData();
-          formData.append('content', newContent);
+          formData.append("content", newContent);
 
           const response = await fetch(`/edit-note/${noteId}`, {
-            method: 'PUT',
-            body: formData
+            method: "PUT",
+            body: formData,
           });
 
           if (response.ok) {
             isEditing = false; // 退出编辑状态
             await loadNotes(); // 等待刷新完成
           } else {
-            alert('保存失败，请继续编辑');
+            alert("保存失败，请继续编辑");
           }
         } catch (error) {
-          console.error('保存失败:', error);
-          alert('保存时发生错误');
+          console.error("保存失败:", error);
+          alert("保存时发生错误");
         }
+      }
+
+      // 控制视频播放速度的函数
+      function changePlaybackRate(button, videoIndex, rate) {
+        // 获取对应的视频元素
+        const videoElement = document.querySelector(
+          `#video-${videoIndex} video`
+        );
+        if (videoElement) {
+          // 设置播放速度
+          videoElement.playbackRate = rate;
+
+          // 高亮当前选中的按钮
+          const buttons = button.parentElement.querySelectorAll("button");
+          buttons.forEach((btn) => {
+            btn.classList.remove("bg-green-600");
+            btn.classList.add("bg-blue-600");
+          });
+          button.classList.remove("bg-blue-600");
+          button.classList.add("bg-green-600");
+
+          // 更新速度指示器
+          document.getElementById(
+            `speed-indicator-${videoIndex}`
+          ).textContent = `${rate}x`;
+
+          // 显示提示
+          showToast(`播放速度已设置为 ${rate}x`, "success");
+
+          // 关闭下拉菜单
+          document
+            .getElementById(`more-options-${videoIndex}`)
+            .classList.add("hidden");
+        }
+      }
+
+      // 切换更多选项菜单
+      function toggleMoreOptions(videoIndex) {
+        const optionsMenu = document.getElementById(
+          `more-options-${videoIndex}`
+        );
+        optionsMenu.classList.toggle("hidden");
+
+        // 点击其他地方关闭菜单
+        document.addEventListener("click", function closeMenu(e) {
+          const container = document.getElementById(
+            `more-options-container-${videoIndex}`
+          );
+          if (!container.contains(e.target)) {
+            optionsMenu.classList.add("hidden");
+            document.removeEventListener("click", closeMenu);
+          }
+        });
       }
     </script>
   </body>
