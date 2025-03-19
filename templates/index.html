@@ -14,26 +14,26 @@
         gap: 1.5rem;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       }
-      
+
       .video-item {
         background: white;
         border-radius: 0.5rem;
         padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s;
       }
-      
+
       .video-item:hover {
         transform: translateY(-2px);
       }
-      
+
       .video-item video {
         width: 100%;
         height: auto;
         aspect-ratio: 16/9;
         border-radius: 0.25rem;
       }
-      
+
       .video-item p {
         margin: 0.5rem 0;
         font-size: 0.9rem;
@@ -43,19 +43,27 @@
 
       .elegant-shape {
         position: absolute;
-        background: linear-gradient(to right, rgba(255,255,255,0.08), transparent);
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.08),
+          transparent
+        );
         backdrop-filter: blur(2px);
-        border: 2px solid rgba(255,255,255,0.15);
-        box-shadow: 0 8px 32px 0 rgba(255,255,255,0.1);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
         border-radius: 9999px;
       }
 
       .elegant-shape::after {
-        content: '';
+        content: "";
         position: absolute;
         inset: 0;
         border-radius: 9999px;
-        background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent 70%);
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 255, 255, 0.2),
+          transparent 70%
+        );
       }
 
       .fade-up {
@@ -73,48 +81,109 @@
   <body class="bg-[#030303] text-white">
     <div class="relative min-h-screen w-full flex flex-col">
       <!-- 背景渐变 -->
-      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl"
+      ></div>
 
       <!-- 动画形状 -->
       <div class="absolute inset-0 overflow-hidden">
-        <div class="elegant-shape" style="width: 600px; height: 140px; left: -10%; top: 15%; transform: rotate(12deg);"></div>
-        <div class="elegant-shape" style="width: 500px; height: 120px; right: -5%; top: 70%; transform: rotate(-15deg);"></div>
-        <div class="elegant-shape" style="width: 300px; height: 80px; left: 5%; bottom: 5%; transform: rotate(-8deg);"></div>
-        <div class="elegant-shape" style="width: 200px; height: 60px; right: 15%; top: 10%; transform: rotate(20deg);"></div>
-        <div class="elegant-shape" style="width: 150px; height: 40px; left: 20%; top: 5%; transform: rotate(-25deg);"></div>
+        <div
+          class="elegant-shape"
+          style="
+            width: 600px;
+            height: 140px;
+            left: -10%;
+            top: 15%;
+            transform: rotate(12deg);
+          "
+        ></div>
+        <div
+          class="elegant-shape"
+          style="
+            width: 500px;
+            height: 120px;
+            right: -5%;
+            top: 70%;
+            transform: rotate(-15deg);
+          "
+        ></div>
+        <div
+          class="elegant-shape"
+          style="
+            width: 300px;
+            height: 80px;
+            left: 5%;
+            bottom: 5%;
+            transform: rotate(-8deg);
+          "
+        ></div>
+        <div
+          class="elegant-shape"
+          style="
+            width: 200px;
+            height: 60px;
+            right: 15%;
+            top: 10%;
+            transform: rotate(20deg);
+          "
+        ></div>
+        <div
+          class="elegant-shape"
+          style="
+            width: 150px;
+            height: 40px;
+            left: 20%;
+            top: 5%;
+            transform: rotate(-25deg);
+          "
+        ></div>
       </div>
 
       <!-- 主要内容 -->
       <div class="relative z-10 container mx-auto px-4 md:px-6 py-12">
         <div class="max-w-3xl mx-auto text-center">
           <div class="fade-up" style="animation-delay: 0.2s">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8"
+            >
               <i data-lucide="circle" class="h-2 w-2 fill-rose-500/80"></i>
-              <span class="text-sm text-white/60 tracking-wide">YouTube 视频下载器</span>
+              <span class="text-sm text-white/60 tracking-wide"
+                >YouTube 视频下载器</span
+              >
             </div>
           </div>
 
           <div class="fade-up" style="animation-delay: 0.4s">
-            <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 tracking-tight">
-              <span class="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
+            <h1
+              class="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 tracking-tight"
+            >
+              <span
+                class="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80"
+              >
                 轻松下载
               </span>
               <br />
-              <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
+              <span
+                class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300"
+              >
                 YouTube 视频
               </span>
             </h1>
           </div>
 
           <div class="fade-up" style="animation-delay: 0.6s">
-            <p class="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto">
+            <p
+              class="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto"
+            >
               输入视频链接，即可下载高质量视频
             </p>
           </div>
 
           <!-- 下载表单 -->
           <div class="fade-up" style="animation-delay: 0.8s">
-            <div class="bg-white/[0.03] backdrop-blur-sm rounded-lg p-6 border border-white/[0.08]">
+            <div
+              class="bg-white/[0.03] backdrop-blur-sm rounded-lg p-6 border border-white/[0.08]"
+            >
               <input
                 type="text"
                 id="videoUrl"
@@ -147,30 +216,37 @@
       </div>
 
       <!-- 已下载视频列表 -->
-      <div class="relative z-10 bg-gradient-to-t from-[#030303] via-[#030303]/80 to-transparent mt-12">
+      <div
+        class="relative z-10 bg-gradient-to-t from-[#030303] via-[#030303]/80 to-transparent mt-12"
+      >
         <div class="container mx-auto px-4 py-8">
           <h2 class="text-2xl font-bold mb-4 text-center">已下载的视频</h2>
           <div class="video-grid">
             {% for video in videos %}
-            <div class="video-item bg-white/[0.03] backdrop-blur-sm border border-white/[0.08]" id="video-{{ loop.index }}">
+            <div
+              class="video-item bg-white/[0.03] backdrop-blur-sm border border-white/[0.08]"
+              id="video-{{ loop.index }}"
+            >
               <video width="400" height="300" controls>
                 <source src="{{ video.path }}" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <p class="font-medium break-words line-clamp-2 text-white">{{ video.title }}</p>
+              <p class="font-medium break-words line-clamp-2 text-white">
+                {{ video.title }}
+              </p>
               <div class="text-center space-y-1">
                 <p class="text-sm text-white/60">{{ video.size }}</p>
                 <p class="text-xs text-white/40">{{ video.date }}</p>
               </div>
               <button
                 onclick="deleteVideo(`{{ video.path }}`, `{{ loop.index }}`);"
-                class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600 transition duration-200"
+                class="gradient-button inline-flex items-center justify-center rounded-[11px] min-w-[132px] px-9 py-4 text-base leading-[19px] font-[500] text-white font-sans font-bold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 transition-all duration-200"
               >
                 删除
               </button>
               <button
                 onclick="convertVideo('{{ video.path }}', `{{ loop.index }}`);"
-                class="bg-green-500 text-white py-1 px-3 rounded-lg hover:bg-green-600 transition duration-200 mt-2"
+                class="gradient-button inline-flex items-center justify-center rounded-[11px] min-w-[132px] px-9 py-4 text-base leading-[19px] font-[500] text-white font-sans font-bold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transition-all duration-200 mt-2"
               >
                 转换格式
               </button>
@@ -181,7 +257,9 @@
                     style="width: 0%"
                   ></div>
                 </div>
-                <p class="text-sm text-white/60 mt-2 convert-status">准备转换...</p>
+                <p class="text-sm text-white/60 mt-2 convert-status">
+                  准备转换...
+                </p>
               </div>
             </div>
             {% endfor %}
@@ -191,7 +269,10 @@
     </div>
 
     <!-- Toast 提示 -->
-    <div id="toast" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg opacity-0 transition-opacity duration-300 z-50"></div>
+    <div
+      id="toast"
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg opacity-0 transition-opacity duration-300 z-50"
+    ></div>
 
     <script>
       // 初始化 Lucide 图标
@@ -199,14 +280,16 @@
 
       // 添加滚动动画
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add("visible");
           }
         });
       });
 
-      document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+      document
+        .querySelectorAll(".fade-up")
+        .forEach((el) => observer.observe(el));
 
       // 原有的 JavaScript 函数保持不变
       let isEditing = false;
@@ -296,10 +379,12 @@
       }
 
       async function convertVideo(videoPath, index) {
-        const progressDiv = document.getElementById(`convert-progress-${index}`);
-        const progressBar = progressDiv.querySelector('.convert-progress');
-        const statusText = progressDiv.querySelector('.convert-status');
-        progressDiv.classList.remove('hidden');
+        const progressDiv = document.getElementById(
+          `convert-progress-${index}`
+        );
+        const progressBar = progressDiv.querySelector(".convert-progress");
+        const statusText = progressDiv.querySelector(".convert-status");
+        progressDiv.classList.remove("hidden");
 
         try {
           const formData = new FormData();
@@ -318,14 +403,18 @@
             const progressData = await progressResponse.json();
 
             progressBar.style.width = `${progressData.progress}%`;
-            statusText.textContent = `转换进度: ${progressData.progress.toFixed(1)}%`;
+            statusText.textContent = `转换进度: ${progressData.progress.toFixed(
+              1
+            )}%`;
 
-            if (progressData.status === 'error') {
+            if (progressData.status === "error") {
               clearInterval(progressInterval);
-              statusText.textContent = `转换失败: ${progressData.error || '未知错误'}`;
+              statusText.textContent = `转换失败: ${
+                progressData.error || "未知错误"
+              }`;
             }
 
-            if (progressData.status === 'completed') {
+            if (progressData.status === "completed") {
               clearInterval(progressInterval);
               statusText.textContent = "转换完成！页面将在3秒后刷新...";
               setTimeout(() => location.reload(), 3000);
@@ -337,59 +426,60 @@
         }
       }
 
-      function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.className = `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded-lg shadow-md text-white text-lg ${
-          type === 'success' ? 'bg-green-500' : 'bg-red-500'
+          type === "success" ? "bg-green-500" : "bg-red-500"
         } opacity-0 transition-opacity duration-300 z-50`;
 
         // 显示并自动隐藏
-        toast.classList.remove('opacity-0');
-        toast.classList.add('opacity-100');
-        
+        toast.classList.remove("opacity-0");
+        toast.classList.add("opacity-100");
+
         setTimeout(() => {
-          toast.classList.remove('opacity-100');
-          toast.classList.add('opacity-0');
+          toast.classList.remove("opacity-100");
+          toast.classList.add("opacity-0");
         }, 1500);
       }
 
       function toggleNoteInput() {
-        const inputArea = document.getElementById('noteInputArea');
-        inputArea.classList.toggle('hidden');
-        document.getElementById('noteContent').value = '';
+        const inputArea = document.getElementById("noteInputArea");
+        inputArea.classList.toggle("hidden");
+        document.getElementById("noteContent").value = "";
       }
 
       async function saveNote() {
-        const content = document.getElementById('noteContent').value;
+        const content = document.getElementById("noteContent").value;
         if (!content) {
-          alert('请输入要保存的内容！');
+          alert("请输入要保存的内容！");
           return;
         }
 
         const formData = new FormData();
-        formData.append('content', content);
+        formData.append("content", content);
 
         try {
-          const response = await fetch('/save-note', {
-            method: 'POST',
-            body: formData
+          const response = await fetch("/save-note", {
+            method: "POST",
+            body: formData,
           });
-          
+
           if (response.ok) {
-            document.getElementById('noteContent').value = '';
+            document.getElementById("noteContent").value = "";
             toggleNoteInput();
             loadNotes();
           }
         } catch (error) {
-          console.error('保存失败:', error);
+          console.error("保存失败:", error);
         }
       }
 
       async function deleteNote(noteId) {
         // 创建自定义确认对话框
-        const dialog = document.createElement('div');
-        dialog.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+        const dialog = document.createElement("div");
+        dialog.className =
+          "fixed inset-0 bg-black/50 flex items-center justify-center z-50";
         dialog.innerHTML = `
           <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
             <h3 class="text-lg font-medium mb-4">确定要删除这条笔记吗？</h3>
@@ -416,37 +506,42 @@
       async function handleNoteDeletion(noteId) {
         try {
           const response = await fetch(`/delete-note/${noteId}`, {
-            method: 'DELETE'
+            method: "DELETE",
           });
           if (response.ok) {
             // 移除对话框
-            document.querySelector('.fixed.inset-0').remove();
+            document.querySelector(".fixed.inset-0").remove();
             // 显示操作反馈
-            showToast('🗑️ 笔记已删除', 'success');
+            showToast("🗑️ 笔记已删除", "success");
             loadNotes();
           }
         } catch (error) {
-          console.error('删除失败:', error);
-          showToast('⚠️ 删除失败，请重试', 'error');
+          console.error("删除失败:", error);
+          showToast("⚠️ 删除失败，请重试", "error");
         }
       }
 
       async function loadNotes() {
-        const notesList = document.getElementById('notesList');
+        const notesList = document.getElementById("notesList");
         try {
-          const response = await fetch('/get-notes');
+          const response = await fetch("/get-notes");
           window.notesData = await response.json(); // 改为全局存储
-          
+
           notesList.innerHTML = Object.entries(window.notesData)
             .sort((a, b) => b[0] - a[0]) // 按时间倒序
-            .map(([id, note], index) => `
+            .map(
+              ([id, note], index) => `
               <div class="bg-gray-50 p-3 rounded-lg" data-note-id="${id}">
                 <div class="flex items-start gap-3">
                   <span class="text-gray-400 font-medium">${index + 1}</span>
                   <div class="flex-1">
-                    <p class="text-gray-600 editable-content">${note.content}</p>
+                    <p class="text-gray-600 editable-content">${
+                      note.content
+                    }</p>
                     <div class="flex justify-between items-center mt-2">
-                      <span class="text-sm text-gray-400">${note.timestamp}</span>
+                      <span class="text-sm text-gray-400">${
+                        note.timestamp
+                      }</span>
                       <div class="space-x-2">
                         <button onclick="copyNote('${id}')" class="text-blue-500 hover:text-blue-600 text-sm" title="复制">
                           复制
@@ -462,9 +557,11 @@
                   </div>
                 </div>
               </div>
-            `).join('');
+            `
+            )
+            .join("");
         } catch (error) {
-          console.error('加载笔记失败:', error);
+          console.error("加载笔记失败:", error);
         }
       }
 
@@ -472,14 +569,19 @@
       function copyNote(noteId) {
         const content = window.notesData[noteId]?.content;
         if (content) {
-          navigator.clipboard.writeText(content)
-            .then(() => showToast('📋 已复制到剪贴板', 'success'))
+          navigator.clipboard
+            .writeText(content)
+            .then(() => showToast("📋 已复制到剪贴板", "success"))
             .catch(() => {
-              showToast('⚠️ 复制失败，已自动选中文本', 'error');
+              showToast("⚠️ 复制失败，已自动选中文本", "error");
               // 自动选中文本作为回退方案
-              const noteDiv = document.querySelector(`[data-note-id="${noteId}"]`);
+              const noteDiv = document.querySelector(
+                `[data-note-id="${noteId}"]`
+              );
               const range = document.createRange();
-              range.selectNodeContents(noteDiv.querySelector('.editable-content'));
+              range.selectNodeContents(
+                noteDiv.querySelector(".editable-content")
+              );
               const selection = window.getSelection();
               selection.removeAllRanges();
               selection.addRange(range);
@@ -491,11 +593,11 @@
       async function startInlineEdit(noteId) {
         isEditing = true; // 进入编辑状态
         const noteDiv = document.querySelector(`[data-note-id="${noteId}"]`);
-        const contentPara = noteDiv.querySelector('.editable-content');
+        const contentPara = noteDiv.querySelector(".editable-content");
         const originalContent = contentPara.textContent;
 
         // 创建编辑元素
-        const editArea = document.createElement('div');
+        const editArea = document.createElement("div");
         editArea.innerHTML = `
           <div class="w-full max-w-4xl">
             <textarea 
@@ -528,34 +630,36 @@
       // 保存编辑
       async function saveInlineEdit(noteId) {
         try {
-          const newContent = document.getElementById(`editContent-${noteId}`).value;
+          const newContent = document.getElementById(
+            `editContent-${noteId}`
+          ).value;
           if (!newContent.trim()) {
-            alert('内容不能为空');
+            alert("内容不能为空");
             return;
           }
 
           const formData = new FormData();
-          formData.append('content', newContent);
+          formData.append("content", newContent);
 
           const response = await fetch(`/edit-note/${noteId}`, {
-            method: 'PUT',
-            body: formData
+            method: "PUT",
+            body: formData,
           });
 
           if (response.ok) {
             isEditing = false; // 退出编辑状态
             await loadNotes(); // 等待刷新完成
           } else {
-            alert('保存失败，请继续编辑');
+            alert("保存失败，请继续编辑");
           }
         } catch (error) {
-          console.error('保存失败:', error);
-          alert('保存时发生错误');
+          console.error("保存失败:", error);
+          alert("保存时发生错误");
         }
       }
 
       // 页面加载时获取笔记
-      document.addEventListener('DOMContentLoaded', loadNotes);
+      document.addEventListener("DOMContentLoaded", loadNotes);
     </script>
   </body>
 </html>
