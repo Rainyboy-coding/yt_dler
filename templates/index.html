@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/components.js" defer></script>
     <style>
       .video-grid {
         display: grid;
@@ -238,18 +239,18 @@
                 <p class="text-sm text-white/60">{{ video.size }}</p>
                 <p class="text-xs text-white/40">{{ video.date }}</p>
               </div>
-              <button
+              <gradient-button
                 onclick="deleteVideo(`{{ video.path }}`, `{{ loop.index }}`);"
-                class="gradient-button inline-flex items-center justify-center rounded-[11px] min-w-[132px] px-9 py-4 text-base leading-[19px] font-[500] text-white font-sans font-bold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 transition-all duration-200"
               >
                 删除
-              </button>
-              <button
+              </gradient-button>
+              <gradient-button
+                variant="variant"
                 onclick="convertVideo('{{ video.path }}', `{{ loop.index }}`);"
-                class="gradient-button inline-flex items-center justify-center rounded-[11px] min-w-[132px] px-9 py-4 text-base leading-[19px] font-[500] text-white font-sans font-bold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transition-all duration-200 mt-2"
+                class="mt-2"
               >
                 转换格式
-              </button>
+              </gradient-button>
               <div id="convert-progress-{{ loop.index }}" class="hidden mt-2">
                 <div class="w-full bg-white/[0.05] rounded-full h-2.5">
                   <div
