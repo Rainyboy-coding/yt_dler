@@ -49,10 +49,6 @@
   animation: toast-out 0.3s ease-in;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   @property --pos-x {
     syntax: "<percentage>";
